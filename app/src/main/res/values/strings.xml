@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AlphabetConverter</string>
+
+    <string-array name="alfabeler">
+        <item>Latin</item>
+        <item>Göktürk</item>
+        <item>Kiril</item>
+        <item>Osmanlı</item>
+    </string-array>
+</resources>
