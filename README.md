@@ -5,7 +5,7 @@ Bu proje; Latin, Göktürk (Rünik), Kiril ve Osmanlı alfabeleri arasında çif
 ##  Projenin Motivasyonu (Tarihsel ve Kültürel Miras)
 Bu uygulamadaki alfabe seçimleri rastgele yapılmamıştır. Uygulama, Türk dilinin tarih boyunca ve günümüzde en çok kullandığı, kültürel ve edebi mirasını şekillendiren 4 ana yazı sistemini kapsayacak şekilde özel olarak tasarlanmıştır:
 * **Göktürk (Rünik):** Türk dilinin bilinen ilk yazılı belgeleri olan Orhun Yazıtları'nın kadim alfabesi.
-* **Osmanlı (Arap tabanlı):** Altı asrı aşkın bir süre boyunca imparatorluğun edebiyat, tarih ve bürokrasisinde kullandığı yazı sistemi.
+* **Osmanlı (Arap-Fars):** Altı asrı aşkın bir süre boyunca imparatorluğun edebiyat, tarih ve bürokrasisinde kullandığı yazı sistemi.
 * **Kiril:** Orta Asya ve Kafkasya'daki birçok Türk cumhuriyeti ve topluluğu tarafından tarihsel ve güncel olarak kullanılan alfabe.
 * **Latin:** Modern Türkiye Cumhuriyeti'nin kullandığı ve günümüzde Türk dünyasında ortaklaşa benimsenen çağdaş yazı sistemi.
 
