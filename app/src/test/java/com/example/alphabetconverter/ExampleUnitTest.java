@@ -4,22 +4,26 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ExampleUnitTest {
+
     @Test
-    public void ceviriTesti() {
+    public void testHubAndSpokeArchitecture() {
         String testMetni = "ATARK";
 
-        // Yeni Merkez (Hub) mimarisine göre testler
-        System.out.println("--- GÖKTÜRK ÇIKTISI ---");
-        System.out.println(TranslatorFactory.translateText(testMetni, "Latin", "Göktürk"));
+        // Latin -> Göktürk Testi
+        String gokturkSonuc = TranslatorFactory.translateText(testMetni, "Latin", "Göktürk");
+        assertNotNull("Göktürk çevirisi null dönemez", gokturkSonuc);
+        assertNotEquals("Göktürk çevirisi boş olamaz", "", gokturkSonuc);
 
-        System.out.println("--- KİRİL ÇIKTISI ---");
-        System.out.println(TranslatorFactory.translateText(testMetni, "Latin", "Kiril"));
+        // Latin -> Kiril Testi
+        String kirilSonuc = TranslatorFactory.translateText(testMetni, "Latin", "Kiril");
+        assertEquals("Kiril dönüşümü hatalı!", "АТАРК", kirilSonuc);
 
-        System.out.println("--- OSMANLI ÇIKTISI ---");
-        System.out.println(TranslatorFactory.translateText(testMetni, "Latin", "Osmanlı"));
-
-        // Tersine çeviri testi örneği
-        System.out.println("--- TERSİNE ÇEVİRİ (KİRİL -> LATİN) ---");
-        System.out.println(TranslatorFactory.translateText("АТАРК", "Kiril", "Latin"));
+        // Tersine Çeviri Testi (Kiril -> Latin)
+        String latinSonuc = TranslatorFactory.translateText("АТАРК", "Kiril", "Latin");
+        assertEquals("Tersine çeviri (Kiril -> Latin) hatalı!", "ATARK", latinSonuc);
+        
+        // Osmanlıca Testi (Sadece çökmediğinden emin olmak için basit null kontrolü)
+        String osmanliSonuc = TranslatorFactory.translateText(testMetni, "Latin", "Osmanlı");
+        assertNotNull("Osmanlıca çevirisi null dönemez", osmanliSonuc);
     }
 }
