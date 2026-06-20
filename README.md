@@ -1,5 +1,7 @@
 # Alfabe Dönüştürücü (Multi-Alphabet Converter)
 
+[![Android CI](https://github.com/goktugcakiroglu/AlfabeDonusturucu/actions/workflows/android-ci.yml/badge.svg)](https://github.com/goktugcakiroglu/AlfabeDonusturucu/actions/workflows/android-ci.yml)
+
 Bu proje; Latin, Göktürk (Rünik), Kiril ve Osmanlı alfabeleri arasında çift yönlü metin dönüşümü sağlayan, temiz mimari ve nesne yönelimli programlama (OOP) prensipleriyle tasarlanmış, gelişime ve katkıya açık bir Android uygulamasıdır.
 
 ## 🚀 Yenilikler (v1.1 Güncellemesi)
@@ -8,8 +10,6 @@ Uygulama, temel karakter dönüşümünün (v1.0) ötesine geçerek akıllı çe
 * **Hızlı Kopyalama:** Çeviri sonuçlarının tek tıkla panoya (clipboard) alınması sağlandı.
 * **Akıllı Klavye Yönetimi:** Çeviri işlemi tetiklendiğinde açık kalan sanal klavyenin otomatik olarak gizlenerek okuma alanının genişletilmesi sağlandı.
 
----
-
 ## 🌍 Projenin Motivasyonu (Tarihsel ve Kültürel Miras)
 Bu uygulamadaki alfabe seçimleri rastgele yapılmamıştır. Uygulama, Türk dilinin tarih boyunca ve günümüzde en çok kullandığı, kültürel ve edebi mirasını şekillendiren 4 ana yazı sistemini kapsayacak şekilde özel olarak tasarlanmıştır:
 * **Göktürk (Rünik):** Türk dilinin bilinen ilk yazılı belgeleri olan Orhun Yazıtları'nın kadim alfabesi.
@@ -17,16 +17,42 @@ Bu uygulamadaki alfabe seçimleri rastgele yapılmamıştır. Uygulama, Türk di
 * **Kiril:** Orta Asya ve Kafkasya'daki birçok Türk cumhuriyeti ve topluluğu tarafından tarihsel ve güncel olarak kullanılan alfabe.
 * **Latin:** Modern Türkiye Cumhuriyeti'nin kullandığı ve günümüzde Türk dünyasında ortaklaşa benimsenen çağdaş yazı sistemi.
 
----
-
 ## 🏗️ Yazılım Mimarisi ve Tasarım Desenleri
 Proje, gelecekteki geliştirmelere esnek bir zemin hazırlamak adına ölçeklenebilir bir mimariyle kurgulanmıştır:
 
 * **Strategy Pattern:** Dönüşüm algoritmaları arayüzden (UI) tamamen soyutlanmıştır. Her alfabenin kuralları bağımsız sınıflarda yönetilir.
 * **Factory Pattern:** `TranslatorFactory` sınıfı, kullanıcının seçimine göre çalışma zamanında (runtime) doğru dönüşüm stratejisini dinamik olarak üretir.
-* **Merkez (Hub-and-Spoke) Mimarisi:** Her alfabeden diğerine doğrudan dönüşüm yazmak (N x N karmaşıklığı) yerine **Latin Alfabesi merkezi bir köprü (Pivot)** olarak konumlandırılmıştır. Örneğin Kiril'den Osmanlıca'ya çeviri yapılırken, metin önce `KirilToLatinStrategy` ile normalize edilir, ardından `LatinToOsmanliStrategy` sınıfına beslenir. Bu sayede modüller arası bağımlılık en aza indirilmiştir.
+* **Merkez (Hub-and-Spoke) Mimarisi:** Her alfabeden diğerine doğrudan dönüşüm yazmak (N x N karmaşıklığı) yerine **Latin Alfabesi merkezi bir köprü (Pivot)** olarak konumlandırılmıştır.
 
----
+```mermaid
+graph TD
+    subgraph UI [View Layer - Android App]
+        MainActivity[MainActivity] --> InputText[EditText - Input]
+        MainActivity --> OutputText[TextView - Output]
+        MainActivity --> Selector[Spinner - Alphabet Chooser]
+    end
+
+    subgraph Controller [Controller Layer]
+        ConverterEngine[TranslatorFactory]
+    end
+
+    subgraph Model [Model / Strategy Layer]
+        ConverterInterface["<< Interface >> <br> TranslationStrategy"]
+        Gokturk["GokturkToLatinStrategy <br> LatinToGokturkStrategy"]
+        Ottoman["OsmanliToLatinStrategy <br> LatinToOsmanliStrategy"]
+        Cyrillic["KirilToLatinStrategy <br> LatinToKirilStrategy"]
+    end
+
+    %% Interactions
+    MainActivity -->|Requests Conversion| ConverterEngine
+    ConverterEngine -->|Returns Converted String| MainActivity
+    ConverterEngine -->|Invokes translate| ConverterInterface
+    
+    %% Strategy Implementations
+    ConverterInterface --- Gokturk
+    ConverterInterface --- Ottoman
+    ConverterInterface --- Cyrillic
+```
 
 ## 🔮 Gelecek Planları ve Yol Haritası (Roadmap)
 Bu proje statik bir son ürün değil, yaşayan bir altyapı olarak kurgulanmıştır. İlerleyen sürümlerde sisteme entegre edilmesi planlanan özellikler:
